@@ -48,9 +48,6 @@ linters:
     - lll
     - gomnd
     - forbidigo
-    - revive
-    - golint
-    - stylecheck
 
 issues:
   exclude-use-default: false

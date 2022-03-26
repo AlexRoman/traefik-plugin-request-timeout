@@ -1,5 +1,5 @@
-// Package traefik_plugin_request_timeout a plugin to set a timeout for a request.
-package traefik_plugin_request_timeout
+// Package traefikpluginrequesttimeout a plugin to set a timeout for a request.
+package traefikpluginrequesttimeout
 
 import (
 	"context"

@@ -1,4 +1,4 @@
-module github.com/AlexRoman/traefik-plugin-request-timeout
+module github.com/AlexRoman/traefikpluginrequesttimeout
 
 go 1.16
 

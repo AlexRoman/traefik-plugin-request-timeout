@@ -1,7 +1,7 @@
-displayName: Request Timeout Plugin
+displayName: Request Timeout
 type: middleware
 
-import: github.com/AlexRoman/traefik-plugin-request-timeout
+import: github.com/AlexRoman/traefikpluginrequesttimeout
 
 summary: 'Add a timeout to a request'
 
