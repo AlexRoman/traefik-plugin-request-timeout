@@ -3,7 +3,6 @@ package requesttimeout
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"time"
 )
@@ -29,10 +28,6 @@ type ResponseTimeout struct {
 
 // New created a new Demo plugin.
 func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
-	if len(config.Headers) == 0 {
-		return nil, fmt.Errorf("headers cannot be empty")
-	}
-
 	return &ResponseTimeout{
 		responseTimeout: config.ResponseTimeout,
 		next:            next,
