@@ -1,4 +1,4 @@
-// Package plugindemo a demo plugin.
+// Package requesttimeout a plugin to set a timeout for a request.
 package requesttimeout
 
 import (
