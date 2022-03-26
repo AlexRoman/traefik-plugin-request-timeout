@@ -1,21 +1,23 @@
 // Package requesttimeout a plugin to set a timeout for a request.
-package requesttimeout
+package traefik_plugin_request_timeout
 
 import (
 	"context"
 	"net/http"
 	"time"
+
+	"github.com/pkg/errors"
 )
 
 // Config the plugin configuration.
 type Config struct {
-	ResponseTimeout time.Duration `json:"responseTimeout,omitempty"`
+	ResponseTimeout string `json:"responseTimeout,omitempty"`
 }
 
 // CreateConfig creates the default plugin configuration.
 func CreateConfig() *Config {
 	return &Config{
-		ResponseTimeout: time.Second * 30,
+		ResponseTimeout: "30s",
 	}
 }
 
@@ -28,15 +30,17 @@ type ResponseTimeout struct {
 
 // New created a new Demo plugin.
 func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
+	responseTimeout, err := time.ParseDuration(config.ResponseTimeout)
+	if err != nil {
+		return nil, errors.Wrap(err, "could not parse responseTimeout")
+	}
 	return &ResponseTimeout{
-		responseTimeout: config.ResponseTimeout,
+		responseTimeout: responseTimeout,
 		next:            next,
 		name:            name,
 	}, nil
 }
 
 func (a *ResponseTimeout) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	ctx, cancelFunc := context.WithTimeout(req.Context(), a.responseTimeout)
-	defer cancelFunc()
-	a.next.ServeHTTP(rw, req.WithContext(ctx))
+	http.TimeoutHandler(a.next, a.responseTimeout, "request timeout by custom plugin").ServeHTTP(rw, req)
 }

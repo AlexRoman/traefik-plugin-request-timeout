@@ -1,23 +1,22 @@
-package requesttimeout_test
+package traefik_plugin_request_timeout_test
 
 import (
 	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 
-	requesttimeout "github.com/AlexRoman/traefik-plugin-request-timeout"
+	traefik_plugin_request_timeout "github.com/AlexRoman/traefik-plugin-request-timeout"
 )
 
 func TestRequestTimeout(t *testing.T) {
-	cfg := requesttimeout.CreateConfig()
-	cfg.ResponseTimeout = time.Second * 5
+	cfg := traefik_plugin_request_timeout.CreateConfig()
+	cfg.ResponseTimeout = "5s"
 
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, err := requesttimeout.New(ctx, next, cfg, "test-timeout")
+	handler, err := traefik_plugin_request_timeout.New(ctx, next, cfg, "test-timeout")
 	if err != nil {
 		t.Fatal(err)
 	}
