@@ -6,4 +6,5 @@ import: github.com/AlexRoman/traefikpluginrequesttimeout
 summary: 'Add a timeout to a request'
 
 testData:
-  responseTimeout: 15s
+  traefikpluginrequesttimeout:
+    responseTimeout: 15s
